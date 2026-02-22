@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Awaiken">
+    <title>Siva Tax Solutions</title>
+    <!-- Google Fonts - external, no alternative -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Onest:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- SlickNav -->
+    <link href="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/css/slicknav.min.css" rel="stylesheet">
+
+    <!-- Swiper -->
+    <link href="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/css/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/css/all.css" rel="stylesheet">
+
+    <!-- Animate -->
+    <link href="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/css/animate.css" rel="stylesheet">
+
+    <!-- Magnific Popup -->
+    <link href="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/css/magnific-popup.css" rel="stylesheet">
+
+    <!-- Mouse Cursor -->
+    <link href="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/css/mousecursor.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/css/custom.css" rel="stylesheet">
+
+    <style>
+        /* ===== VALIDATION STYLES ===== */
+        .form-control {
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+            .form-control.is-invalid {
+                border-color: #e74c3c !important;
+                box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.12) !important;
+            }
+
+            .form-control.is-valid {
+                border-color: #2ecc71 !important;
+                box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.12) !important;
+            }
+
+        .field-error {
+            display: block;
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            opacity: 0;
+            transform: translateY(-4px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+            .field-error.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        /* ===== MODAL OVERLAY ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 18, 35, 0.72);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+            .modal-overlay.active {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+        /* ===== MODAL CARD ===== */
+        .modal-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 52px 44px 44px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 32px 80px rgba(10, 18, 35, 0.22), 0 2px 8px rgba(10,18,35,0.08);
+            position: relative;
+            transform: translateY(28px) scale(0.96);
+            transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+            opacity: 0;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        /* ===== ICON CIRCLE ===== */
+        .modal-icon-wrap {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e5ab53 0%, #f0c87a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 24px rgba(229, 171, 83, 0.35);
+            animation: pulse-ring 1.8s ease-out infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                box-shadow: 0 0 0 0 rgba(229,171,83,0.45);
+            }
+
+            70% {
+                box-shadow: 0 0 0 14px rgba(229,171,83,0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(229,171,83,0);
+            }
+        }
+
+        .modal-icon-wrap svg {
+            width: 38px;
+            height: 38px;
+        }
+        /* Checkmark draw animation */
+        .checkmark-path {
+            stroke-dasharray: 60;
+            stroke-dashoffset: 60;
+        }
+
+        .modal-overlay.active .checkmark-path {
+            animation: draw-check 0.55s 0.3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
+
+        @keyframes draw-check {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* ===== MODAL TEXT ===== */
+        .modal-title {
+            font-family: 'Onest', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #213751;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
+        }
+
+        .modal-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 14.5px;
+            color: #6b7c93;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        /* ===== MODAL CLOSE BUTTON ===== */
+        .modal-close-btn {
+            background: linear-gradient(135deg, #e5ab53, #f0c87a);
+            color: #213751;
+            border: none;
+            border-radius: 50px;
+            padding: 13px 36px;
+            font-family: 'Onest', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 16px rgba(229,171,83,0.3);
+        }
+
+            .modal-close-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(229,171,83,0.45);
+            }
+
+            .modal-close-btn:active {
+                transform: translateY(0);
+            }
+
+        /* ===== X CLOSE ===== */
+        .modal-x {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            background: none;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #aab4c0;
+            font-size: 18px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+            .modal-x:hover {
+                background: #f4f6f9;
+                color: #213751;
+            }
+
+        /* ===== SUBMIT BUTTON STATES ===== */
+        #submitbutton {
+            transition: opacity 0.25s ease, transform 0.2s ease;
+            cursor: pointer;
+            font-family: 'Onest', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.03em;
+        }
+
+            #submitbutton:hover:not(:disabled) {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(229,171,83,0.4);
+            }
+
+            #submitbutton:disabled {
+                opacity: 0.65;
+                cursor: not-allowed;
+            }
+
+        /* ===== SPINNER inside button ===== */
+        .btn-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(33,55,81,0.25);
+            border-top-color: #213751;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Preloader Start -->
+    <div class="preloader">
+        <div class="loading-container">
+            <div class="loading"></div>
+            <div id="loading-icon"><img src="images/loader.gif" alt=""></div>
+        </div>
+    </div>
+    <!-- Preloader End -->
+    <!-- Header Start -->
+    <header class="main-header" style="margin-top:-8px">
+        <div class="header-sticky">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <a class='navbar-brand' href='index.html'>
+                        <img src="images/test2.png" alt="Logo">
+                    </a>
+                    <div class="collapse navbar-collapse main-menu">
+                        <div class="nav-menu-wrapper">
+                            <ul class="navbar-nav mr-auto" id="menu">
+                                <li class="nav-item"><a class='nav-link' href='index.html'>Home</a></li>
+                                <li class="nav-item"><a class='nav-link' href='about.html'>About Us</a></li>
+                                <li class="nav-item"><a class='nav-link' href='service.html'>Services</a></li>
+                                <li class="nav-item"><a class='nav-link' href='team.html'>Team</a></li>
+                                <li class="nav-item"><a class='nav-link' href='contact.html'>Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="navbar-toggle"></div>
+                </div>
+            </nav>
+            <div class="responsive-menu"></div>
+        </div>
+    </header>
+    <!-- Header End -->
+    <!-- Page Header Start -->
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-header-box">
+                        <h1 class="text-anime-style-3" data-cursor="-opaque">Contact Us</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+    <!-- Page Contact Us Start -->
+    <div class="page-contact-us">
+        <div class="contact-us bg-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="contact-information">
+                            <div class="contact-info-item wow fadeInUp">
+                                <div class="icon-box">
+                                    <img src="images/icon-phone.svg" alt="">
+                                </div>
+                                <div class="contact-info-content">
+                                    <h3>contact</h3>
+                                    <p>+91 9245753707</p>
+                                    <p>+91 8248488606</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item wow fadeInUp" data-wow-delay="0.25s">
+                                <div class="icon-box">
+                                    <img src="images/icon-email.svg" alt="">
+                                </div>
+                                <div class="contact-info-content">
+                                    <h3>email</h3>
+                                    <p>sivataxsolution.info@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item wow fadeInUp" data-wow-delay="0.5s">
+                                <div class="icon-box">
+                                    <img src="images/icon-location.svg" alt="">
+                                </div>
+                                <div class="contact-info-content">
+                                    <h3>Branch</h3>
+                                    <p>Paramakudi (Head Office), Chennai, Bangalore</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Us Form Start -->
+        <div class="contact-us-form">
+            <div class="container">
+                <div class="row section-row align-items-center">
+                    <div class="col-lg-6 col-md-8">
+                        <div class="section-title">
+                            <h3 class="wow fadeInUp">contact us</h3>
+                            <h2 class="text-anime-style-3" data-cursor="-opaque">Get in touch with our experts finance</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-4">
+                        <div class="section-btn wow fadeInUp" data-wow-delay="0.25s">
+                            <a href="#" class="btn-default contact-btn">+91 9245753707</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="google-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62952.3465502866!2d78.54382191040551!3d9.550220376431966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b010617efde0787%3A0x1dd74f186a6c43ce!2sParamakudi%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1771493450563!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="contact-form">
+                            <div class="contact-form-title wow fadeInUp">
+                                <h2>Have any questions?</h2>
+                            </div>
+
+                            <form id="contactForm" action="https://script.google.com/macros/s/AKfycbzKie8R_awRJ3q39iKh5GJCZ_cwTfNzUFvSXmD3X7zm-y0_XY3mH5krBKfWCGJYPT02/exec" method="POST" novalidate class="wow fadeInUp" data-wow-delay="0.25s">
+                                <div class="row">
+                                    <div class="form-group col-md-6 mb-4">
+                                        <input type="text" name="fname" class="form-control" id="fname" placeholder="First Name" autocomplete="given-name">
+                                        <span class="field-error" id="fname-error">Please enter your first name.</span>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-4">
+                                        <input type="text" name="lname" class="form-control" id="lname" placeholder="Last Name" autocomplete="family-name">
+                                        <span class="field-error" id="lname-error">Please enter your last name.</span>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-4">
+                                        <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" autocomplete="email">
+                                        <span class="field-error" id="email-error">Please enter a valid email address.</span>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-4">
+                                        <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone No" autocomplete="tel" maxlength="15">
+                                        <span class="field-error" id="phone-error">Please enter a valid phone number.</span>
+                                    </div>
+                                    <div class="form-group col-md-12 mb-5">
+                                        <textarea name="message" class="form-control" id="message" rows="5" placeholder="Message (optional)"></textarea>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input id="submitbutton"
+                                               type="submit"
+                                               style="width:100%; height:50px; background-color:#e5ab53; border-radius:25px; border:1px solid #e5ab53; color:#213751;"
+                                               value="Submit Message" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Contact Us End -->
+    <!-- ===== SUCCESS MODAL ===== -->
+    <div class="modal-overlay" id="successModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card">
+            <button class="modal-x" id="modalX" aria-label="Close">&times;</button>
+
+            <div class="modal-icon-wrap">
+                <!-- Animated checkmark SVG -->
+                <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="checkmark-path"
+                          d="M14 27 L22 35 L38 19"
+                          stroke="#213751"
+                          stroke-width="4"
+                          stroke-linecap="round"
+                          stroke-linejoin="round" />
+                </svg>
+            </div>
+
+            <h2 class="modal-title" id="modalTitle">Message Sent!</h2>
+            <p class="modal-subtitle">
+                Thank you for reaching out. Our team will get back to you within 24 hours.
+            </p>
+            <button class="modal-close-btn" id="modalCloseBtn">Got it, thanks!</button>
+        </div>
+    </div>
+    <!-- ===== END MODAL ===== -->
+    <!-- Footer Start -->
+    <footer class="main-footer bg-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <!-- About Footer Start -->
+                    <div class="about-footer">
+                        <!-- Footer Logo Start -->
+                        <div class="footer-logo">
+                            <!-- <img src="images/footer-logo.svg" alt=""> -->
+                        </div>
+                        <!-- Footer Logo End -->
+                    </div>
+                    <!-- About Footer End -->
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-6" style="visibility: hidden;">
+                    <!-- Footer Links Start -->
+                    <div class="footer-links">
+                        <h3>feature</h3>
+                        <ul>
+                            <li><a href="#">payment link</a></li>
+                            <li><a href="#">invoicing</a></li>
+                            <li><a href="#">checkout</a></li>
+                            <li><a href="#">integrations</a></li>
+                        </ul>
+                    </div>
+                    <!-- Footer Links End -->
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-6">
+                    <!-- Footer Links Start -->
+                    <div class="footer-links">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href='gstreg.html'>GST Regsitration</a></li>
+                            <li><a href='digmar.html'>Digital Marketting</a></li>
+                            <li><a href='webdes.html'>Web Design and Development</a></li>
+                            <li><a href='acchan.html'>Accounts Handling</a></li>
+                        </ul>
+                    </div>
+                    <!-- Footer Links End -->
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-6">
+                    <!-- Footer Links Start -->
+                    <div class="footer-links">
+                        <h3>resources</h3>
+                        <ul>
+                            <li><a href="contact.html">support</a></li>
+                            <li><a href="contact.htm">privacy policy</a></li>
+                        </ul>
+                    </div>
+                    <!-- Footer Links End -->
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-6">
+                    <!-- Footer Links Start -->
+                    <div class="footer-links">
+                        <h3>company</h3>
+                        <ul>
+                            <li><a href='index.html'>home</a></li>
+                            <li><a href='team.html'>Team</a></li>
+                            <li><a href='service.html'>services</a></li>
+                            <li><a href='contact.html'>contact</a></li>
+                        </ul>
+                    </div>
+                    <!-- Footer Links End -->
+                </div>
+            </div>
+
+            <!-- Footer Copyright Section Start -->
+            <div class="footer-copyright">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6">
+                        <!-- Footer Copyright Start -->
+                        <div class="footer-copyright-text">
+                            <p>Copyright © 2026 All Rights Reserved.</p>
+                        </div>
+                        <!-- Footer Copyright End -->
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                        <!-- Footer Social Link Start -->
+                        <div class="footer-social-links">
+                            <ul>
+                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com/taxation2026?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fa-brands fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                            </ul>
+                        </div>
+                        <!-- Footer Social Link End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Copyright Section End -->
+        </div>
+    </footer>
+    <!-- Footer End -->
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/jquery-3.7.1.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Validator -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/validator.min.js"></script>
+
+    <!-- SlickNav -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/jquery.slicknav.js"></script>
+
+    <!-- Swiper -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/swiper-bundle.min.js"></script>
+
+    <!-- Waypoints -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/jquery.waypoints.min.js"></script>
+
+    <!-- CounterUp -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/jquery.counterup.min.js"></script>
+
+    <!-- Isotope -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/isotope.min.js"></script>
+
+    <!-- Magnific Popup -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/jquery.magnific-popup.min.js"></script>
+
+    <!-- SmoothScroll -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/smoothscroll.js"></script>
+
+    <!-- Parallax -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/parallaxie.js"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/gsap.min.js"></script>
+
+    <!-- MagicCursor -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/magiccursor.js"></script>
+
+    <!-- SplitText -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/splittext.js"></script>
+
+    <!-- ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/scrolltrigger.min.js"></script>
+
+    <!-- YTPlayer -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/jquery.mb.ytplayer.min.js"></script>
+
+    <!-- WOW -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/wow.js"></script>
+
+    <!-- Main Function -->
+    <script src="https://cdn.jsdelivr.net/gh/Vicky00401/siva-assests@1.0.0/js/function.js"></script>
+    <script>
+        (function () {
+            // ─── Elements ───────────────────────────────────────────────
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitbutton');
+            const modal = document.getElementById('successModal');
+            const modalClose = document.getElementById('modalCloseBtn');
+            const modalX = document.getElementById('modalX');
+
+            // ─── Field rules ────────────────────────────────────────────
+            const fields = [
+                {
+                    id: 'fname',
+                    errorId: 'fname-error',
+                    validate: v => v.trim().length >= 2,
+                    message: 'First name must be at least 2 characters.'
+                },
+                {
+                    id: 'lname',
+                    errorId: 'lname-error',
+                    validate: v => v.trim().length >= 2,
+                    message: 'Last name must be at least 2 characters.'
+                },
+                {
+                    id: 'email',
+                    errorId: 'email-error',
+                    validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+                    message: 'Please enter a valid email address.'
+                },
+                {
+                    id: 'phone',
+                    errorId: 'phone-error',
+                    validate: v => /^[+]?[\d\s\-()]{7,15}$/.test(v.trim()),
+                    message: 'Please enter a valid phone number (7–15 digits).'
+                }
+            ];
+
+            // ─── Per-field validation helpers ────────────────────────────
+            function showError(field) {
+                const el = document.getElementById(field.id);
+                const errEl = document.getElementById(field.errorId);
+                el.classList.add('is-invalid');
+                el.classList.remove('is-valid');
+                errEl.textContent = field.message;
+                errEl.classList.add('visible');
+            }
+
+            function clearError(field) {
+                const el = document.getElementById(field.id);
+                const errEl = document.getElementById(field.errorId);
+                el.classList.remove('is-invalid');
+                el.classList.add('is-valid');
+                errEl.classList.remove('visible');
+            }
+
+            function validateField(field) {
+                const el = document.getElementById(field.id);
+                const val = el.value;
+                const ok = field.validate(val);
+                ok ? clearError(field) : showError(field);
+                return ok;
+            }
+
+            // Live validation — only after first touch
+            fields.forEach(field => {
+                const el = document.getElementById(field.id);
+                el.addEventListener('blur', () => validateField(field));
+                el.addEventListener('input', () => {
+                    if (el.classList.contains('is-invalid') || el.classList.contains('is-valid')) {
+                        validateField(field);
+                    }
+                });
+            });
+
+            // ─── Full-form validation ────────────────────────────────────
+            function validateAll() {
+                let valid = true;
+                fields.forEach(field => {
+                    if (!validateField(field)) valid = false;
+                });
+                return valid;
+            }
+
+            // ─── Modal helpers ───────────────────────────────────────────
+            function openModal() {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            modalClose.addEventListener('click', closeModal);
+            modalX.addEventListener('click', closeModal);
+
+            // Close on overlay click (outside card)
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) closeModal();
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+            });
+
+            // ─── Form submit ─────────────────────────────────────────────
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Run full validation first — don't submit empty / invalid data
+                if (!validateAll()) {
+                    // Shake the submit button to indicate error
+                    submitBtn.style.animation = 'none';
+                    submitBtn.offsetHeight;   // reflow
+                    return;
+                }
+
+                // Disable button & show sending state
+                submitBtn.disabled = true;
+                submitBtn.value = 'Sending...';
+                submitBtn.style.backgroundColor = '#b0b8c1';
+                submitBtn.style.borderColor = '#b0b8c1';
+                submitBtn.style.color = '#fff';
+                submitBtn.style.cursor = 'not-allowed';
+
+                const formData = new FormData(form);
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(() => {
+                        form.reset();
+                        // Remove is-valid classes after reset
+                        fields.forEach(f => {
+                            document.getElementById(f.id).classList.remove('is-valid', 'is-invalid');
+                        });
+                        openModal();
+                    })
+                    .catch(() => {
+                        // Google Apps Script CORS fires catch even on success
+                        form.reset();
+                        fields.forEach(f => {
+                            document.getElementById(f.id).classList.remove('is-valid', 'is-invalid');
+                        });
+                        openModal();
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.value = 'Submit Message';
+                        submitBtn.style.backgroundColor = '#e5ab53';
+                        submitBtn.style.borderColor = '#e5ab53';
+                        submitBtn.style.color = '#213751';
+                        submitBtn.style.cursor = 'pointer';
+                    });
+            });
+
+        })();
+    </script>
+</body>
+</html>
